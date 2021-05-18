@@ -1,0 +1,10 @@
+Wikibook: https://en.wikibooks.org/wiki/LaTeX
+
+Entry-level tutorial: https://www.latex-tutorial.com/tutorials/
+
+Overleaf: https://www.overleaf.com/learn
+https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes
+
+aaksoy: http://www1.cmc.edu/pages/faculty/aaksoy/latex/latex-toc.html
+
+Q&A forum: https://tex.stackexchange.com/
