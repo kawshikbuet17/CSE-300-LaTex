@@ -1,0 +1,49 @@
+% EQUATION and MATH MODE
+
+
+\documentclass[16pt, a4paper]{article} %14 pt indicates the font size of the prepared document
+\usepackage[utf8]{inputenc} %indicates the encoding of the document
+\usepackage{amsmath}
+
+\title{Template - Math Mode}
+\author{Kawshik Kumar Paul}
+\date{\today}
+% \date{21 March 2021}
+
+\begin{document}
+\maketitle
+\tableofcontents %this command creates the table of contents with all numbered sections, subsections, etc.
+\pagebreak %This will force the rest of the document to start in another page.
+
+\section{Equation}
+This is a simple equation: $a + a = 2a$
+
+\section{Superscript and Subscript}
+Superscript: $a^n$, $a^{in}$
+\newline
+Subscript: $a_n$, $a_{in}$
+\newline
+Nested Superscript and Subscript: $a^{b^n}$, $a_{b_n}$
+
+\section{Mathematical Environments}
+Inline: $\sum_{i=0}^n a_i$
+\newline
+Inline with displaystyle: $\displaystyle\sum_{i=0}^n a_i$
+\newline
+Block level: $$\sum_{i=0}^n a_i$$
+\newline
+Block level with equation number:
+\begin{equation}
+\sum_{i=0}^n a_i
+\end{equation}
+
+\section{Miscellaneous}
+Comparisons:
+$ <$, $ \leq $, $ > $, $\geq $
+\newline
+Union and Intersection:
+$A \cap B$, $A \cup B$
+\newline
+Fractions: $\frac{a}{b}$, ($\frac{a}{b}$), $\left(\frac{a}{b}\right)$
+
+\end{document}

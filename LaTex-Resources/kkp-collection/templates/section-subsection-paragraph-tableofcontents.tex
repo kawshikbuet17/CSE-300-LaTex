@@ -1,0 +1,44 @@
+%SECTION, SUBSECTION, PARAGRAPH, TABLE OF CONTENTS, AND SOME FORMATTING EXAMPLES
+
+\documentclass[14pt, a4paper]{article} %14 pt indicates the font size of the prepared document
+\usepackage[utf8]{inputenc} %indicates the encoding of the document
+\usepackage{color} %this package enables the use of colors.
+
+\title{Template - Section SubSection Paragraph Table-of-Contents}
+\author{Kawshik Kumar Paul}
+\date{\today}
+% \date{21 March 2021}
+
+\begin{document}
+\maketitle
+\tableofcontents %this command creates the table of contents with all numbered sections, subsections, etc.
+\pagebreak %This will force the rest of the document to start in another page.
+
+\section{Introduction}
+This is the introduction section.
+
+\subsection{Subsection 1.1}
+This is subsection 1.1.
+
+This sentence will begin in a new paragraph due to the blank line before it. This is a filler line.\par
+However, this sentence begins in a new paragraph due to the \\par command used after the end of the last sentence. This is another filler line.
+
+\subsubsection{Subsubsection 1.1.1}
+This is subsubsection 1.1.1.
+
+\subsection*{Unnumbered subsection}
+This is an unnumbered subsection under Introduction. \textbf{This will NOT show up in the Table of Contents.} 
+
+\emph{This sentence is an example of emphasis. Even though it is italic in this example, using another package might change it to something else, like underlined text.  \emph{Also, emphasis can be nested.} The previous sentence was an example of nested emphasis.} 
+
+\textit{This sentence will always be italic.}
+%\color{red} This is a red sentence. %This command will make the rest of document red (including this sentence) 
+{\color{red} This is a red sentence.} %This command will only make this sentence red
+
+
+\section*{Unnumbered Section Example}
+This section should not be numbered. Using * after the section specifier prevents this numbering. This will NOT show up in the Table of Contents.
+\LARGE{This sentence is LARGE.}
+\Huge{This sentence is HUGE.}
+
+\end{document}
