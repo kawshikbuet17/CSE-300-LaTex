@@ -1,3 +1,5 @@
 Table Generate Online:
 	https://www.tablesgenerator.com/
 
+Matrix Mode Codes:
+	https://www.math-linux.com/latex-26/faq/latex-faq/article/how-to-write-matrices-in-latex-matrix-pmatrix-bmatrix-vmatrix-vmatrix
