@@ -8,9 +8,7 @@
 % or 
 \usepackage{amssymb}
 \usepackage{authblk}
-\usepackage{chngcntr}
-\counterwithin{table}{section}
-\counterwithin{figure}{section}
+\usepackage{geometry}
 
 \title{CSE 300: Online Assignment}
 \author[1,*]{Md Shamsuzzoha Bayzid}
@@ -18,7 +16,7 @@
 \author[1,$\dag$]{Md Shariful Islam Bhuyan}
 \author[1,$\dag$]{and Md Saidur Rahman}
 
-\affil[1]{Department of Computer Science and Engineering\newline Bangladesh University of Engineering and Technology}
+\affil[1]{Department of Computer Science and Engineering\linebreak Bangladesh University of Engineering and Technology}
 \affil[*]{Corresponding author: shams\textunderscore bayzid@cse.buet.ac.bd}
 \affil[$\dag$]{These authors contributed equally to this work}
 
@@ -30,12 +28,8 @@
 	This assignment has been designed to assess the preparation of the students in writing scientific articles using \LaTeX. Different components that are frequently used in manuscripts have been covered in this assignment.
 	\subsection{Tables}
 	We wish to place Table \ref{table:tab1} right here.
-	\newline
-	\newline
-	Table \ref{table:tab1}: \textbf{Optimization scores for Method-1 and Method-2 on different datasets covering various model conditions. We show average scores of two optimization criteria for various model conditions.}
-
 	\begin{table}
-	\label{table:tab1}
+	\caption{\label{table:tab1}\textbf{Optimization scores for Method-1 and Method-2 on different datasets covering various model conditions.} We show average scores of two optimization criteria for various model conditions.}
     \begin{tabular}{|c|cc|cc|cc|}
         \hline
         \multicolumn{3}{|c|}{Simulation Condition}                  & \multicolumn{4}{c|}{Optimization Score}                   \\ \hline
@@ -54,10 +48,10 @@
     \begin{figure}[t!]
         \centering
         \includegraphics[width=0.7\linewidth]{Figure3.pdf}
-        \caption{\textbf{Nearest Neighbor Interchange (NNI) move on an internal edge.} (a)
+        \caption{\label{fig:fig1}\textbf{Nearest Neighbor Interchange (NNI) move on an internal edge.} (a)
 A species tree ST , and (b)-(c) the neighbors of ST resulting from one NNI move on edge
 e = (u1 , u2 ). A, B, C, and D are the sets of taxa in the four subtrees around edge e.
-}   \label{fig:fig1}
+}   
     \end{figure}
     
     \subsection{Figures}
@@ -107,7 +101,8 @@ e = (u1 , u2 ). A, B, C, and D are the sets of taxa in the four subtrees around 
                     n_2 \\
                     1
                 \end{pmatrix} \\
-        & = \frac{n_1 n_2 n_3 (n_1 + n_2 + n_3 - 3)}{2}
+        & = \frac{n_1 n_2 n_3 (n_1 + n_2 + n_3 - 3)}{2} \\
+        \newline
         \end{split}
     \end{equation}
 
@@ -119,5 +114,4 @@ e = (u1 , u2 ). A, B, C, and D are the sets of taxa in the four subtrees around 
      \item{{To see if the students can add various basic components (e.g tables, figures, equations) to a \LaTeX manuscript.}}
      \item{To see if the students can leverage the available materials (both offline and online) to do something which has not explicitly been in the class.}
     \end{itemize}
-	
 \end{document}
