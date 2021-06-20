@@ -1,8 +1,8 @@
 
 \documentclass{bredelebeamer}
 \usepackage{tikz}
-
-
+\usepackage{smartdiagram}
+\usepackage[table,xcdraw]{xcolor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -87,10 +87,10 @@
 \begin{frame}{Sequence Alignment}
 \begin{itemize}
     \item  Procedure of comparing to (Pairwise) or more (Multiple) sequences by searching for a series of individual characters that are in the same order in the sequence.
-\newline
-\newline
-\end{itemize}
-\resizebox{\linewidth}{!}{
+    \linebreak
+    \linebreak
+    \linebreak
+    \resizebox{\linewidth}{!}{
 \begin{table}[scale=0.4\textwidth]
 \begin{tabular}{cccccccccccccccccccc}
 G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
@@ -98,7 +98,55 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
  &  & T & G & G & T & C & A & C & A & T & C & T & G & C & C & G & C &  & 
 \end{tabular}
 \end{table}}
-   
+\newline
+\newline
+\end{itemize}
+\end{frame}
+\begin{frame}{Sequence Alignment}
+    \begin{itemize}
+        \item \textbf{\large{Definition}}
+        \linebreak
+        Given two strings $x = x_1 x_2 ... x_m$ and $y = y_1 y_2 ... y_m$, \linebreak
+        an alignment is an assignment of gaps to positions 0 ... M in x and 0 ... N in y, so as to line up each letter in one sequence with either a letter or a gap in the other sequence.
+    \end{itemize}
+\end{frame}
+\begin{frame}{A Simple Alignment}
+    \begin{itemize}
+        \item Let us try to align two short nucleotide sequences:\linebreak
+        -AATCTATA and AAGATA\linebreak
+        \linebreak
+        \item Without considering any gaps (insertions/deletions) there are 3 possible ways to align these sequences\linebreak
+        \linebreak
+        \resizebox{\linewidth}{!}{
+        \begin{table}[]
+\begin{tabular}{llllllllllllllllllllllllllll}
+\cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} \textbf{A}} & \textbf{A} & \textbf{T} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} & \textbf{} & \textbf{A} & \textbf{A} & \textbf{T} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} &  & \textbf{A} & \textbf{A} & \textbf{T} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{T} & \textbf{A} \\
+\textbf{A} & \textbf{A} & \textbf{G} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{A} & \textbf{A} & \textbf{G} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{A} & \textbf{A} & \textbf{G} & \textbf{A} & \textbf{T} & \textbf{A}
+\end{tabular}
+\end{table}}
+\linebreak
+    \item Which one is better?
+    \end{itemize}
+\end{frame}
+\begin{frame}{What is a Good Alignment}
+    \resizebox{\linewidth}{!}{
+    \begin{table}[]
+\begin{tabular}{llllllllllllllllllllllllllllll}
+\textbf{A} & \textbf{G} & \textbf{G} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{G} & \textbf{T} & \textbf{T} & \textbf{,} & \textbf{} & \textbf{} & \textbf{A} & \textbf{G} & \textbf{C} & \textbf{G} & \textbf{A} & \textbf{A} & \textbf{G} & \textbf{T} & \textbf{T} &  &  &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+\multicolumn{1}{c}{\textbf{A}} & \multicolumn{1}{c}{\textbf{G}} & \multicolumn{1}{c}{\textbf{G}} & \multicolumn{1}{c}{\textbf{C}} & \multicolumn{1}{c}{\textbf{T}} & \multicolumn{1}{c}{\textbf{A}} & \multicolumn{1}{c}{\textbf{G}} & \multicolumn{1}{c}{\textbf{T}} & \multicolumn{1}{c}{\textbf{T}} & \multicolumn{1}{c}{\textbf{-}} & \multicolumn{1}{c}{\textbf{}} & \multicolumn{1}{c}{\textbf{}} & \multicolumn{1}{c}{\textbf{}} & \multicolumn{17}{c}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Matches = 6\\ Mistatches = 3\\ Gap = 1\end{tabular}}}} \\
+\multicolumn{1}{c}{\textbf{A}} & \multicolumn{1}{c}{\textbf{G}} & \multicolumn{1}{c}{\textbf{C}} & \multicolumn{1}{c}{\textbf{G}} & \multicolumn{1}{c}{\textbf{A}} & \multicolumn{1}{c}{\textbf{A}} & \multicolumn{1}{c}{\textbf{G}} & \multicolumn{1}{c}{\textbf{T}} & \multicolumn{1}{c}{\textbf{T}} & \multicolumn{1}{c}{\textbf{T}} & \multicolumn{1}{c}{\textbf{}} & \multicolumn{1}{c}{\textbf{}} & \multicolumn{1}{c}{\textbf{}} & \multicolumn{17}{c}{} \\
+ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+\textbf{A} & \textbf{G} & \textbf{G} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{-} & \textbf{G} & \textbf{T} & \textbf{T} & \textbf{-} & \textbf{} & \textbf{} & \multicolumn{17}{c}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Matches = 7\\ Mismatches = 1\\ Gaps = 3\end{tabular}}}} \\
+\textbf{A} & \textbf{G} & \textbf{-} & \textbf{C} & \textbf{G} & \textbf{A} & \textbf{A} & \textbf{G} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{} & \textbf{} & \multicolumn{17}{c}{} \\
+ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+\textbf{A} & \textbf{G} & \textbf{G} & \textbf{C} & \textbf{-} & \textbf{T} & \textbf{-} & \textbf{G} & \textbf{T} & \textbf{T} & \textbf{-} & \textbf{} & \textbf{} & \multicolumn{17}{c}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Matches = 7\\ Mismatches = 0\\ Gaps = 5\end{tabular}}}} \\
+\textbf{A} & \textbf{G} & \textbf{-} & \textbf{C} & \textbf{G} & \textbf{-} & \textbf{A} & \textbf{A} & \textbf{G} & \textbf{T} & \textbf{T} & \textbf{} & \textbf{} & \multicolumn{17}{c}{}
+\end{tabular}
+\end{table}}
 \end{frame}
 \section{Score Matrix}
 \begin{frame}{Score Matrix}
@@ -182,10 +230,6 @@ regions)
    \end{itemize}
    \end{itemize}  
  \end{frame}
- \begin{frame}{}
-     \begin{itemize}
-         \item \large{Here we introduce Smith & Waterman Algorithm for local alignment...}
-     \end{itemize} \end{frame}
   \begin{frame}{Dynamic Programming}
      \begin{itemize}
          \item Instead of evaluating every possible alignment, we can create a 
@@ -211,6 +255,197 @@ C              & \multirow{2}{*}{-1} & ACGA           \\
      \end{itemize}
      \end{itemize}
  \end{frame}
+ 
+ \section{Local sequence alignment}
+ \begin{frame}{Local sequence alignment}
+\begin{itemize}
+    \item Suppose we have a long DNA sequence (eg 4000 bp) and we want to compare it with the 
+complete yeast genome (12.5Mbp)
+\item What if only a portion of our query, say 200 bp
+length, has strong similarity to a gene in yeast.
+\end{itemize}   
+ \end{frame}
+  \begin{frame}{Local sequence alignment problem}
+\begin{itemize}
+    \item Given two strings 
+    $$x=x_1.....x_M$$ 
+     $$y=y_1.....x_N$$
+\end{itemize} 
+Find substring $y^,$, $x^,$ whose similarity
+(optimal global alignment value) is maximum.
+ $$ x = aaaacccccggggtta $$
+ $$ y = ttcccgggaaccaacc $$
+
+ \end{frame}
+ \section{Example}
+ \begin{frame}{Example}
+  \centering
+  \begin{Large}
+   \textbf{Example} \linebreak
+  \end{Large}
+\begin{columns}
+\column{0.5\textwidth}
+\textcolor{red}{Q:  E Q L L K A L E F K L \\
+P:  K V L E F G Y}
+
+\column{0.5\textwidth}
+\textcolor{blue}{Linear gap model \\
+Gap= -1 \\
+Match= 4 \\
+Mismatch= -2}
+
+\end{columns}
+\begin{table}[]
+\centering
+\begin{tabular}{lllllllllllll}
+                        & --                    & E                     & Q                     & L                     & L                     & K                     & A                     & L                     & E                     & F                     & K                     & L                     \\ \cline{2-13} 
+\multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
+\end{tabular}
+\end{table}
+  
+ \end{frame}
+ 
+ \begin{frame}
+ \centering
+  \begin{Large}
+   \textbf{Example} \linebreak
+  \end{Large}
+\begin{columns}
+\column{0.5\textwidth}
+\textcolor{red}{Q:  E Q L L K A L E F K L \\
+P:  K V L E F G Y}
+
+\column{0.5\textwidth}
+\textcolor{blue}{Linear gap model \\
+Gap= -1 \\
+Match= 4 \\
+Mismatch= -2}
+
+\end{columns}
+     
+     \begin{table}[]
+\centering
+\begin{tabular}{lllllllllllll}
+                        & --                     & E                      & Q                      & L                      & L                      & K                      & A                      & L                      & E                      & F                      & K                      & L                      \\ \cline{2-13} 
+\multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{2-13} 
+\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
+\end{tabular}
+\end{table}
+     
+ \end{frame}
+ 
+ \begin{frame}
+  \centering
+  \begin{Large}
+   \textbf{Example} \linebreak
+  \end{Large}
+\begin{columns}
+\column{0.5\textwidth}
+\textcolor{red}{Q:  E Q L L K A L E F K L \\
+P:  K V L E F G Y}
+
+\column{0.5\textwidth}
+\textcolor{blue}{Linear gap model \\
+Gap= -1 \\
+Match= 4 \\
+Mismatch= -2}
+
+\end{columns}
+     \begin{table}[]
+\centering
+\begin{tabular}{lllllllllllll}
+                        & --                     & E                      & Q                      & L                      & L                      & K                      & A                      & L                      & E                       & F                       & K                       & L                       \\ \cline{2-13} 
+\multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{5}  & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{9}  & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{9}  & \multicolumn{1}{l|}{14} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} \\ \cline{2-13} 
+\multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{11} \\ \cline{2-13} 
+\multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7}  & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{10} \\ \cline{2-13} 
+\end{tabular}
+\end{table}
+ \end{frame}
+ 
+\begin{frame}
+\centering
+  \begin{Large}
+   \textbf{Example} \linebreak
+  \end{Large}
+\begin{columns}
+\column{0.5\textwidth}
+\textcolor{red}{Q:  E Q L L K A L E F K L \\
+P:  K V L E F G Y}
+
+\column{0.5\textwidth}
+\textcolor{blue}{Linear gap model \\
+Gap= -1 \\
+Match= 4 \\
+Mismatch= -2}
+
+\end{columns}
+
+\begin{table}[]
+\centering
+\begin{tabular}{lllllllllllll}
+                        & --                     & E                      & Q                      & L                      & L                      & K                      & A                      & L                      & E                       & F                                               & K                       & L                       \\ \cline{2-13} 
+\multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1}  & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{5}  & \multicolumn{1}{l|}{4}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{9}  & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}14} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} \\ \cline{2-13} 
+\multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{13}                         & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{11} \\ \cline{2-13} 
+\multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7}  & \multicolumn{1}{l|}{12}                         & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{10} \\ \cline{2-13} 
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\centering
+  \begin{Large}
+   \textbf{Example} \linebreak
+  \end{Large}
+\begin{columns}
+\column{0.5\textwidth}
+\textcolor{red}{Q:  E Q L L K A L E F K L \\
+P:  K V L E F G Y}
+
+\column{0.5\textwidth}
+\begin{block}{Alignment}
+Q:  K A - L E F \\
+P:  K - V L E F
+\end{block}
+\end{columns}
+\begin{table}[]
+\centering
+\begin{tabular}{lllllllllllll}
+                        & --                     & E                      & Q                      & L                      & L                                              & K                                              & A                                              & L                                              & E                                               & F                                               & K                       & L                       \\ \cline{2-13} 
+\multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}4} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}3} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}2} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}6} & \multicolumn{1}{l|}{5}                          & \multicolumn{1}{l|}{4}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{5}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}10} & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}14} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} \\ \cline{2-13} 
+\multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{8}                          & \multicolumn{1}{l|}{13}                         & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{11} \\ \cline{2-13} 
+\multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{7}                          & \multicolumn{1}{l|}{12}                         & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{10} \\ \cline{2-13} 
+\end{tabular}
+\end{table} 
+\end{frame}
 % \begin{columns}
 
 % \begin{column}{0.5\textwidth}
