@@ -175,6 +175,62 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
     }
     \end{itemize}
 \end{frame}
+\begin{frame}{Simple Alignment with gaps}
+    \begin{itemize}
+        \item Considering gapped alignments vastly increases the number of possible alignments:\linebreak
+        \linebreak
+        \resizebox{\linewidth}{!}{
+        \begin{table}[]
+            \begin{tabular}{llllllllllllllllllllllllllll}
+            \textbf{A} & \textbf{A} & \textbf{T} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} & \textbf{} & \textbf{A} & \textbf{A} & \textbf{T} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} &  & \textbf{A} & \textbf{A} & \textbf{T} & \textbf{C} & \textbf{T} & \textbf{A} & \textbf{T} & \textbf{A} \\
+            \textbf{A} & \textbf{A} & \textbf{G} & \textbf{-} & \textbf{A} & \textbf{T} & \textbf{-} & \textbf{A} & \textbf{} & \textbf{} & \textbf{A} & \textbf{A} & \textbf{-} & \textbf{G} & \textbf{-} & \textbf{A} & \textbf{T} & \textbf{A} & \textbf{} & \textbf{} & \textbf{A} & \textbf{A} & \textbf{-} & \textbf{-} & \textbf{G} & \textbf{A} & \textbf{T} & \textbf{A} \\
+            \multicolumn{1}{c}{\textbf{}} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \multicolumn{1}{c}{\textbf{}} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} & \multicolumn{1}{c}{\textbf{}} &  &  &  &  &  \\
+            \multicolumn{8}{c}{\textbf{1}} & \textbf{} & \textbf{} & \multicolumn{8}{c}{\textbf{3}} & \textbf{} & \textbf{} & \multicolumn{8}{c}{\textbf{3}}
+            \end{tabular}
+        \end{table}}
+        \item If gap penalty is -1, what will be the new scores?
+    \end{itemize}
+\end{frame}
+\begin{frame}{Sequence Edits}
+        \begin{enumerate}
+            \item Mutations
+            \item Insertions
+            \item Deletions
+        \end{enumerate}
+\end{frame}
+\begin{frame}{Mutations}
+    \begin{table}[]
+        \begin{tabular}{ccccccc}
+        \textbf{A} & \textbf{G} & \textbf{G} & \textbf{C}                        & \textbf{C} & \textbf{T} & \textbf{C} \\
+        \textbf{A} & \textbf{G} & \textbf{G} & {\color[HTML]{FE0000} \textbf{A}} & \textbf{C} & \textbf{T} & \textbf{C}
+        \end{tabular}
+    \end{table}
+\end{frame}
+\begin{frame}{Insertions}
+    \begin{table}[]
+        \begin{tabular}{cccccccc}
+        \textbf{A} & \textbf{G} & \textbf{G} & \textbf{C}                        & \textbf{C} & \textbf{T} & \textbf{C} &            \\
+        \textbf{A} & \textbf{G} & \textbf{G} & {\color[HTML]{FE0000} \textbf{G}} & \textbf{C} & \textbf{C} & \textbf{T} & \textbf{C}
+        \end{tabular}
+    \end{table}
+\end{frame}
+\begin{frame}{Deletions}
+    \begin{table}[]
+\begin{tabular}{ccccccc}
+\textbf{A} & \textbf{G} & \textbf{G} & \textbf{C}                        & \textbf{C} & \textbf{T} & \textbf{C} \\
+\textbf{A} & \textbf{G} & \textbf{G} & {\color[HTML]{FE0000} \textbf{.}} & \textbf{C} & \textbf{T} & \textbf{C}
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}{Scoring Function}
+    \par Match: \hfill+m\linebreak
+    \par Mismatch: \hfill-s\linebreak
+    \par Gap: \hfill-d
+    \linebreak
+    \linebreak
+    \linebreak
+    Score F = (\# matches) x m - (\# mismatches) x s - (\# gaps) x d
+\end{frame}
 \section{Score Matrix}
 \begin{frame}{Score Matrix}
    \begin{itemize}
@@ -300,9 +356,24 @@ length, has strong similarity to a gene in yeast.
 \end{itemize} 
 Find substring $y^,$, $x^,$ whose similarity
 (optimal global alignment value) is maximum.
- $$ x = aaaacccccggggtta $$
- $$ y = ttcccgggaaccaacc $$
+ $$ x = aaaacc\underline{cccggg}gtta $$
+ $$ y = tt\underline{cccggg}aaccaacc $$
 
+ \end{frame}
+ \section{Smith & Waterman Algorithm}
+ \begin{frame}{Smith & Waterman Algorithm}
+    \begin{itemize}
+        \item F(i j) = optimal local similarity among suffixes A(1:i) and B(1:j)
+        \item Recurrence relation
+        \begin{itemize}
+            \item F(i,0) = 0
+            \item F(0,j) = 0
+            \item F(i j) =  max [0, F(i,j-1) + s(-,B(j)),
+            F(i-1,j) + s(A(i),-),
+            F(i-1,j-1) + s(A(i),B(j)]
+            
+        \end{itemize}
+    \end{itemize} 
  \end{frame}
  \section{Example}
  \begin{frame}{Example}
