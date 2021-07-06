@@ -1,12 +1,23 @@
 \documentclass{bredelebeamer}
 \usepackage{tikz}
+\usepackage{tabularx,booktabs}
+\usepackage{nicematrix}
 \usepackage{smartdiagram}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\definecolor{qqzzqq}{rgb}{0,0.6,0}
+\definecolor{yqqqyq}{rgb}{0.5019607843137255,0,0.5019607843137255}
+\definecolor{qqccqq}{rgb}{0,0.8,0}
+\definecolor{ffqqqq}{rgb}{1,0,0}
+\definecolor{cqcqcq}{rgb}{0.7529411764705882,0.7529411764705882,0.7529411764705882}
 \usepackage[table,xcdraw]{xcolor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-\title[]{Smith-Waterman Algorithm for \linebreak Pairwise Local Alignment}
+\title[]{Smith \& Waterman Algorithm for \linebreak Pairwise Local Alignment}
 
 
 \author[ Kawshik, Imon and Maisha]{Kawshik Kumar Paul(1705043) \linebreak Monirul Haque Imon(1705054) \linebreak Maisha Rahman Mim (1705060)}
@@ -60,7 +71,6 @@
 \end{itemize}
 }
 \end{frame}
-\subsection{Why do we need to align sequence?}
 \begin{frame}{Why do we need to align sequence?}
 \begin{itemize}
 \item Comparing DNA/protein sequences for
@@ -79,7 +89,6 @@
 \item  Finding motifs
 \end{itemize}
 \end{frame}
-\subsection{Definition}
 \begin{frame}{Sequence Alignment}
 \begin{itemize}
     \item  Procedure of comparing to (Pairwise) or more (Multiple) sequences by searching for a series of individual characters that are in the same order in the sequence.
@@ -103,7 +112,7 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
         \item \textbf{\large{Definition}}
         \linebreak
         \linebreak
-        Given two strings $x = x_1 x_2 ... x_m$ and $y = y_1 y_2 ... y_m$, \linebreak
+        Given two strings $x = x_1 x_2 ... x_m$ and $y = y_1 y_2 ... y_n$, \linebreak
         an alignment is an assignment of gaps to positions 0 ... M in x and 0 ... N in y, so as to line up each letter in one sequence with either a letter or a gap in the other sequence.
     \end{itemize}
 \end{frame}
@@ -175,7 +184,7 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
     }
     \end{itemize}
 \end{frame}
-\begin{frame}{Simple Alignment with gaps}
+\begin{frame}{Simple Alignment with Gaps}
     \begin{itemize}
         \item Considering gapped alignments vastly increases the number of possible alignments:\linebreak
         \linebreak
@@ -188,10 +197,17 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
             \multicolumn{8}{c}{\textbf{1}} & \textbf{} & \textbf{} & \multicolumn{8}{c}{\textbf{3}} & \textbf{} & \textbf{} & \multicolumn{8}{c}{\textbf{3}}
             \end{tabular}
         \end{table}}
+        \linebreak
+        \linebreak
         \item If gap penalty is -1, what will be the new scores?
     \end{itemize}
 \end{frame}
+\section{Sequence Edits}
 \begin{frame}{Sequence Edits}
+    \large{Lets do some sequence edits and view scores}
+\end{frame}
+\begin{frame}{Sequence Edits}
+    \large{Three types of sequence edits}
         \begin{enumerate}
             \item Mutations
             \item Insertions
@@ -223,15 +239,14 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
 \end{table}
 \end{frame}
 \begin{frame}{Scoring Function}
-    \par Match: \hfill+m\linebreak
-    \par Mismatch: \hfill-s\linebreak
-    \par Gap: \hfill-d
+    \par Match: \quad+m\linebreak
+    \par Mismatch: \quad-s\linebreak
+    \par Gap: \quad-d
     \linebreak
     \linebreak
     \linebreak
     Score F = (\# matches) x m - (\# mismatches) x s - (\# gaps) x d
 \end{frame}
-\section{Score Matrix}
 \begin{frame}{Score Matrix}
    \begin{itemize}
        \item Instead of having a single match/mismatch 
@@ -275,7 +290,7 @@ evolutionary relationships:
    
     }  
  \end{frame}
-  \begin{frame}{Alignment is additive}
+  \begin{frame}{Alignment is Additive}
    
     \begin{itemize}
  \item Observation:
@@ -292,7 +307,7 @@ evolutionary relationships:
    
    \end{itemize} 
  \end{frame}
- \begin{frame}{Types of alignment}
+ \begin{frame}{Types of Alignment}
     \begin{itemize}
  \item Global
           \begin{itemize}
@@ -339,8 +354,8 @@ C              & \multirow{2}{*}{-1} & ACGA           \\
      \end{itemize}
  \end{frame}
  
- \section{Local sequence alignment}
- \begin{frame}{Local sequence alignment}
+ \section{Local Sequence Alignment}
+ \begin{frame}{Local Sequence Alignment}
 \begin{itemize}
     \item Suppose we have a long DNA sequence (eg 4000 bp) and we want to compare it with the 
 complete yeast genome (12.5Mbp)
@@ -348,7 +363,7 @@ complete yeast genome (12.5Mbp)
 length, has strong similarity to a gene in yeast.
 \end{itemize}   
  \end{frame}
-  \begin{frame}{Local sequence alignment problem}
+  \begin{frame}{Local Sequence Alignment Problem}
 \begin{itemize}
     \item Given two strings 
     $$x=x_1.....x_M$$ 
@@ -360,15 +375,15 @@ Find substring $y^,$, $x^,$ whose similarity
  $$ y = tt\underline{cccggg}aaccaacc $$
 
  \end{frame}
- \section{Smith & Waterman Algorithm}
- \begin{frame}{Smith & Waterman Algorithm}
+ \section{Smith \& Waterman Algorithm}
+ \begin{frame}{Smith \& Waterman Algorithm}
     \begin{itemize}
         \item F(i j) = optimal local similarity among suffixes A(1:i) and B(1:j)
         \item Recurrence relation
         \begin{itemize}
             \item F(i,0) = 0
             \item F(0,j) = 0
-            \item F(i j) =  max [0, F(i,j-1) + s(-,B(j)),
+            \item F(i, j) =  max [0, F(i,j-1) + s(-,B(j)),
             F(i-1,j) + s(A(i),-),
             F(i-1,j-1) + s(A(i),B(j)]
             
@@ -379,12 +394,12 @@ Find substring $y^,$, $x^,$ whose similarity
  \begin{frame}{Example}
   \centering
   \begin{Large}
-   \textbf{Example} \linebreak
+%   \textbf{Example} \linebreak
   \end{Large}
 \begin{columns}
 \column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
+\textcolor{red}{Q: \quad E Q L L K A L E F K L \\
+P: \quad K V L E F G Y}
 
 \column{0.5\textwidth}
 \textcolor{blue}{Linear gap model \\
@@ -395,7 +410,7 @@ Mismatch= -2}
 \end{columns}
 \begin{table}[]
 \centering
-\begin{tabular}{lllllllllllll}
+\begin{tabular}{*{13}{p{0.4cm}}}
                         & --                    & E                     & Q                     & L                     & L                     & K                     & A                     & L                     & E                     & F                     & K                     & L                     \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
 \multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{2-13} 
@@ -410,15 +425,15 @@ Mismatch= -2}
   
  \end{frame}
  
- \begin{frame}
+ \begin{frame}{Example}
  \centering
   \begin{Large}
-   \textbf{Example} \linebreak
+%   \textbf{Example} \linebreak
   \end{Large}
 \begin{columns}
 \column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
+\textcolor{red}{Q: \quad E Q L L K A L E F K L \\
+P: \quad K V L E F G Y}
 
 \column{0.5\textwidth}
 \textcolor{blue}{Linear gap model \\
@@ -430,7 +445,7 @@ Mismatch= -2}
      
      \begin{table}[]
 \centering
-\begin{tabular}{lllllllllllll}
+\begin{tabular}{*{13}{p{0.4cm}}}
                         & --                     & E                      & Q                      & L                      & L                      & K                      & A                      & L                      & E                      & F                      & K                      & L                      \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{2-13} 
 \multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{2-13} 
@@ -445,15 +460,15 @@ Mismatch= -2}
      
  \end{frame}
  
- \begin{frame}
+ \begin{frame}{Example}
   \centering
   \begin{Large}
-   \textbf{Example} \linebreak
+%   \textbf{Example} \linebreak
   \end{Large}
 \begin{columns}
 \column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
+\textcolor{red}{Q: \quad E Q L L K A L E F K L \\
+P: \quad K V L E F G Y}
 
 \column{0.5\textwidth}
 \textcolor{blue}{Linear gap model \\
@@ -464,7 +479,7 @@ Mismatch= -2}
 \end{columns}
      \begin{table}[]
 \centering
-\begin{tabular}{lllllllllllll}
+\begin{tabular}{*{13}{p{0.4cm}}}
                         & --                     & E                      & Q                      & L                      & L                      & K                      & A                      & L                      & E                       & F                       & K                       & L                       \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
 \multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1}  & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
@@ -478,15 +493,15 @@ Mismatch= -2}
 \end{table}
  \end{frame}
  
-\begin{frame}
+\begin{frame}{Example}
 \centering
   \begin{Large}
-   \textbf{Example} \linebreak
+%   \textbf{Example} \linebreak
   \end{Large}
 \begin{columns}
 \column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
+\textcolor{red}{Q: \quad E Q L L K A L E F K L \\
+P: \quad  K V L E F G Y}
 
 \column{0.5\textwidth}
 \textcolor{blue}{Linear gap model \\
@@ -498,7 +513,7 @@ Mismatch= -2}
 
 \begin{table}[]
 \centering
-\begin{tabular}{lllllllllllll}
+\begin{tabular}{*{13}{p{0.4cm}}}
                         & --                     & E                      & Q                      & L                      & L                      & K                      & A                      & L                      & E                       & F                                               & K                       & L                       \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
 \multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1}  & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
@@ -513,25 +528,25 @@ Mismatch= -2}
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Example}
 \centering
   \begin{Large}
-   \textbf{Example} \linebreak
+%   \textbf{Example} \linebreak
   \end{Large}
 \begin{columns}
 \column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
+\textcolor{red}{Q:\quad  E Q L L K A L E F K L \\
+P:\quad  K V L E F G Y}
 
 \column{0.5\textwidth}
 \begin{block}{Alignment}
-Q:  K A - L E F \\
-P:  K - V L E F
+Q:\quad  K A - L E F \\
+P:\quad K - V L E F
 \end{block}
 \end{columns}
 \begin{table}[]
 \centering
-\begin{tabular}{lllllllllllll}
+\begin{tabular}{*{13}{p{0.4cm}}}
                         & --                     & E                      & Q                      & L                      & L                                              & K                                              & A                                              & L                                              & E                                               & F                                               & K                       & L                       \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
 \multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}4} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}3} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
@@ -544,75 +559,61 @@ P:  K - V L E F
 \end{tabular}
 \end{table} 
 \end{frame}
-\begin{frame}
+\begin{frame}{Example}
 \centering
   \begin{Large}
-   \textbf{Example} \linebreak
+%   \textbf{Example} \linebreak
   \end{Large}
 \begin{columns}
 \column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
+\textcolor{red}{Q: \quad E Q L L K A L E F K L \\
+P: \quad K V L E F G Y}
 
 \column{0.5\textwidth}
 \begin{block}{Alignment}
-Q:  K - A L E F \\
-P:  K V - L E F
+Q: \quad K - A L E F \\
+P: \quad K V - L E F
 \end{block}
 \end{columns}    
 
 \begin{table}[]
 \centering
-\begin{tabular}{lllllllllllll}
+\begin{tabular}{*{13}{p{0.4cm}}}
                         & --                     & E                      & Q                      & L                      & L                                              & K                                              & A                                              & L                                              & E                                               & F                                               & K                       & L                       \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
 \multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}4} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}3} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}3} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}2} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}6} & \multicolumn{1}{l|}{5}                          & \multicolumn{1}{l|}{4}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{5}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}10} & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}3} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}2} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}6} & \multicolumn{1}{l|}{5}                          & \multicolumn{1}{l|}{4}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13}
+\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{5}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}10} & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}   \cline{2-13} 
 \multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}14} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} \\ \cline{2-13} 
 \multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{8}                          & \multicolumn{1}{l|}{13}                         & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{11} \\ \cline{2-13} 
 \multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{7}                          & \multicolumn{1}{l|}{12}                         & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{10} \\ \cline{2-13} 
 \end{tabular}
 \end{table}
 \end{frame}
+% \begin{frame}{Frame Title}
 
-\begin{frame}
-    \centering
-  \begin{Large}
-   \textbf{Example} \linebreak
-  \end{Large}
-\begin{columns}
-\column{0.5\textwidth}
-\textcolor{red}{Q:  E Q L L K A L E F K L \\
-P:  K V L E F G Y}
-
-\column{0.5\textwidth}
-\begin{block}{Alignment}
-Q:  K A L E F \\
-P:  K V L E F
-\end{block}
-\end{columns}
-  
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-\begin{table}[]
-\centering
-\begin{tabular}{lllllllllllll}
-                        & --                     & E                      & Q                      & L                      & L                                              & K                                              & A                                              & L                                              & E                                               & F                                               & K                       & L                       \\ \cline{2-13} 
-\multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}4} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}3} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}3} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}2} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}6} & \multicolumn{1}{l|}{5}                          & \multicolumn{1}{l|}{4}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{5}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}10} & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}14} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} \\ \cline{2-13} 
-\multicolumn{1}{l|}{G}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{8}                          & \multicolumn{1}{l|}{13}                         & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{11} \\ \cline{2-13} 
-\multicolumn{1}{l|}{Y}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{7}                          & \multicolumn{1}{l|}{12}                         & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{10} \\ \cline{2-13} 
-\end{tabular}
-\end{table}  
-    
-\end{frame}
-
+% \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+% \draw [color=cqcqcq,, xstep=1000cm,ystep=1000cm] (-4093.139044765442,-2195.3204666080196) grid (17040.69380844236,8358.7564503645);
+% \clip(-4093.139044765442,-2195.3204666080196) rectangle (17040.69380844236,8358.7564503645);
+% \draw[line width=2pt,color=ffqqqq,smooth,samples=100,domain=1105.6015098677565:2876.2475301510785] plot(\x,{freehand((\x))});
+% \draw[line width=2pt,color=qqccqq,smooth,samples=100,domain=2802.4706126392734:5107.999284883183] plot(\x,{freehand((\x))});
+% \draw[line width=2pt,color=yqqqyq,smooth,samples=100,domain=4960.445449859572:7450.4164158829935] plot(\x,{freehand((\x))});
+% \draw [color=ffqqqq](2056.986068652867,5816.5335433565215) node[anchor=north west] {score = -10};
+% \draw [color=qqzzqq](3880.1964363050583,3351.3476941366625) node[anchor=north west] {score = 50};
+% \draw [color=yqqqyq](6948.839238198536,1977.5201635818455) node[anchor=north west] {score = -5};
+% \draw (2403.6528286994103,732.0877293405626) node[anchor=north west] {total score = 35};
+% \begin{scriptsize}
+% \draw [fill=black] (2765.5821538833707,4217.548603480122) circle (2.5pt);
+% \draw[color=black] (2865.875175428135,4487.644296511441) node {$A$};
+% \draw [fill=black] (5000,2109.840235511369) circle (2.5pt);
+% \draw[color=black] (5099.949851283637,2381.9647169694786) node {$B$};
+% \draw [fill=black] (1105.6015098677565,5884.906939246916) circle (2.5pt);
+% \draw[color=black] (1209.578432983538,6156.780548587388) node {$C$};
+% \draw [fill=black] (7450.4164158829935,572.9688783969527) circle (2.5pt);
+% \draw[color=black] (7552.296190872149,854.0630708384203) node {$D$};
+% \end{scriptsize}
+% \end{tikzpicture} 
+% \end{frame}
 
 \end{document}
