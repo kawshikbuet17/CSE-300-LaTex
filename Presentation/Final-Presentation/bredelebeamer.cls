@@ -64,6 +64,8 @@
 \usepackage{array}
 \usepackage{colortbl}
 \tcbuselibrary{skins}
+\usepackage{amsmath}
+
 
 
 %%%% Merci : http://tex.stackexchange.com/questions/112343/beautiful-table-samples
