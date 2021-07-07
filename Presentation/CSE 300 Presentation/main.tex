@@ -21,6 +21,7 @@
 \usepackage{tabularx,booktabs}
 \usepackage{nicematrix}
 \usepackage{smartdiagram}
+\usepackage{amsmath}
 \definecolor{ffqqqq}{rgb}{1,0,0}
 \definecolor{qqqqcc}{rgb}{0,0,0.8}
 \definecolor{qqccqq}{rgb}{0,0.8,0}
@@ -69,7 +70,6 @@
 \large{
 \begin{itemize}
     \item Why do we need to align sequence?
-    \item Evolutionary Relationships
 \end{itemize}
 }
 \end{frame}
@@ -89,6 +89,7 @@
     \item  End-space-free alignment / overlap alignment
 \end{itemize}
 \item  Finding motifs
+\item Understanding Evolutionary Relationships
 \end{itemize}
 \end{frame}
 \begin{frame}{Sequence Alignment}
@@ -252,6 +253,10 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
     \linebreak
     Score F = (\# matches) x m - (\# mismatches) x s - (\# gaps) x d
 \end{frame}
+\section{Score Matrix}
+\begin{frame}{}
+    \tableofcontents[currentsection]
+\end{frame}
 \begin{frame}{Score Matrix}
    \begin{itemize}
    \item Assign scores to each pair of symbol
@@ -303,7 +308,7 @@ G & C & T & A & G & T & C & A & G & A & T & C & T & G & A & C & G & C & T & A \\
     \newline
     The two scores add up:
     \quad
-   $$F(x[1:M], y[1:N]) = F(x[1:i], y[1:j]) + F(x[i+1:M], y[j+1:N])$$
+   $$$F(x[1:M], y[1:N]) = F(x[1:i], y[1:j]) + F(x[i+1:M], y[j+1:N])$$
    
    \end{itemize} 
  \end{frame}
@@ -389,10 +394,12 @@ Find substring $y^,$, $x^,$ whose similarity
         \begin{itemize}
             \item $F(i,0) = 0$
             \item $F(0,j) = 0$
-            \item $F(i, j) =  max [0, F(i,j-1) + s(-,B(j)),
-            F(i-1,j) + s(A(i),-),
-            F(i-1,j-1) + s(A(i),B(j)]$
-            
+            \item F(i,j) = max \begin{cases} 
+             0 \\
+             F(i,j-1) + s(-,B(j)) \\
+             F(i-1,j) + s(A(i),-) \\
+             F(i-1,j-1) + s(A(i),B(j))
+            \end{cases}
         \end{itemize}
     \end{itemize} 
  \end{frame}
@@ -984,8 +991,8 @@ P:\quad K V L E F
 \begin{tabular}{*{13}{p{0.4cm}}}
                         & --                     & E                      & Q                      & L                      & L                                              & K                                              & A                                              & L                                              & E                                               & F                                               & K                       & L                       \\ \cline{2-13} 
 \multicolumn{1}{l|}{--} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} &  \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}  & \multicolumn{1}{l|}{0}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         &\multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}4} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}3} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
-\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}3} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}2} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} %37
+\multicolumn{1}{l|}{K}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         &\multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{4}  & \multicolumn{1}{l|}{3}  \\ \cline{2-13} 
+\multicolumn{1}{l|}{V}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}2} & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{0}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{2}  \\ \cline{2-13} %37
 \multicolumn{1}{l|}{L}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}6} & \multicolumn{1}{l|}{5}                          & \multicolumn{1}{l|}{4}                          & \multicolumn{1}{l|}{3}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13}
 \multicolumn{1}{l|}{E}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3}                         & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{5}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}10} & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{8}  & \multicolumn{1}{l|}{7}  \\ \cline{2-13} 
 \multicolumn{1}{l|}{F}  & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{4}                         & \multicolumn{1}{l|}{9}                          & \multicolumn{1}{l|}{\cellcolor[HTML]{3166FF}14} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{12} \\ \cline{2-13} 
@@ -1019,6 +1026,4 @@ P:\quad K V L E F
       \end{center} 
 
 \end{frame}
-
-
 \end{document}
